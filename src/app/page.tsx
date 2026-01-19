@@ -1,5 +1,7 @@
 import { getMilestones, isAdmin } from "@/lib/actions/milestones";
 import { MilestoneCardGrid } from "@/components/molecules/milestone-card-grid";
+import { ErrorNotification } from "@/components/molecules/error-notification";
+import { Suspense } from "react";
 
 export default async function Home() {
   const [milestonesResult, adminStatus] = await Promise.all([
@@ -13,6 +15,9 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Suspense fallback={null}>
+        <ErrorNotification />
+      </Suspense>
       <main className="sm:pb-0 pb-[30%] flex flex-col gap-8 p-4 sm:p-6 max-w-5xl mx-auto min-h-screen">
         <div className="mt-3">
           <h1 className="font-bold text-3xl text-center">

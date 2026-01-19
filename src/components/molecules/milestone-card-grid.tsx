@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import {
   Dialog,
   DialogContent,
@@ -38,6 +39,16 @@ export function MilestoneCardGrid({
   milestones,
   isAdmin = false,
 }: MilestoneCardGridProps) {
+  const router = useRouter();
+
+  /**
+   * Navigasi ke halaman edit
+   */
+  const handleEdit = (e: React.MouseEvent, milestoneId: string) => {
+    e.stopPropagation();
+    router.push(`/form/${milestoneId}`);
+  };
+
   if (milestones.length === 0) {
     return (
       <div className="text-center py-12 text-muted-foreground">
@@ -87,7 +98,7 @@ export function MilestoneCardGrid({
                       </PopoverTrigger>
                       <PopoverContent className="w-fit bg-transparent p-0 border-none">
                         <Button
-                          onClick={(e) => e.stopPropagation()}
+                          onClick={(e) => handleEdit(e, item.id)}
                           variant="default"
                           className="h-8 rounded-sm"
                         >

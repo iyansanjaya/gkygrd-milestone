@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
+import { toast } from "sonner";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/shadcn/button";
@@ -159,10 +160,11 @@ export function MilestoneEditForm({
 
       if (result.success) {
         setDeleteDialogOpen(false);
+        toast.success("Milestone berhasil dihapus!");
         router.push("/");
         router.refresh();
       } else {
-        setError(result.error || "Gagal menghapus milestone");
+        toast.error(result.error || "Gagal menghapus milestone");
         setDeleteDialogOpen(false);
       }
     });

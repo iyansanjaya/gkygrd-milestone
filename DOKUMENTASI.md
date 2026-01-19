@@ -27,6 +27,7 @@ Dokumentasi lengkap untuk developer website internal GKY Gerendeng Milestone.
 Website internal untuk mencatat milestone/event khusus GKY Gerendeng. Fitur utama:
 - **Login** via Google OAuth atau Email OTP
 - **Milestones** - Catatan event/aktivitas dengan gambar
+- **Form Admin** - Halaman khusus admin untuk menambah milestone
 - **Admin-only** - Hanya admin yang bisa create/edit/delete
 - **Protected Routes** - Semua halaman memerlukan login
 
@@ -43,6 +44,8 @@ Website internal untuk mencatat milestone/event khusus GKY Gerendeng. Fitur utam
 | **Tailwind CSS** | 4.x | Utility-first CSS |
 | **Zod** | 4.3.5 | Schema validation |
 | **Shadcn UI** | - | Component library |
+| **date-fns** | - | Date formatting |
+| **react-day-picker** | - | Calendar component |
 
 ---
 
@@ -56,7 +59,8 @@ src/
 │   ├── auth/                 # Auth routes
 │   │   └── callback/         # OAuth callback handler
 │   │       └── route.ts
-│   ├── form/                 # Halaman form (jika ada)
+│   ├── form/                 # Halaman form admin (protected)
+│   │   └── page.tsx          # Form tambah milestone
 │   ├── login/                # Halaman login
 │   │   └── page.tsx
 │   ├── otp/                  # Halaman verifikasi OTP
@@ -72,7 +76,8 @@ src/
 │   ├── organism/             # Komponen besar
 │   │   ├── account-card.tsx  # Card info akun
 │   │   ├── login-form.tsx    # Form login
-│   │   └── otp-form.tsx      # Form OTP
+│   │   ├── otp-form.tsx      # Form OTP
+│   │   └── milestone-form.tsx # Form tambah milestone (admin)
 │   ├── shadcn/               # Shadcn UI components
 │   └── theme-provider.tsx    # Theme context
 │
@@ -359,6 +364,7 @@ export default async function Page() {
 const protectedRoutes = [
   "/",           // Home
   "/account",    // Account page
+  "/form",       // Form admin (admin-only di page level)
   "/dashboard",  // Dashboard (jika ada)
   "/profile",
   "/settings",
@@ -374,6 +380,7 @@ const authRoutes = ["/login", "/otp"];
 | Unauthenticated + Protected route | Redirect ke /login |
 | Authenticated + Auth route | Redirect ke / |
 | Authenticated + Protected route | Allow access |
+| Non-admin + /form | Redirect ke / |
 
 ---
 
@@ -401,6 +408,15 @@ Grid kartu milestone dengan:
 - Admin-only edit button
 - Image fallback
 - Responsive grid
+
+### MilestoneForm (`src/components/organism/milestone-form.tsx`)
+
+Form untuk menambah milestone (admin only) dengan:
+- Input judul, deskripsi, tanggal, URL gambar
+- Calendar popover (Shadcn Calendar)
+- Validasi client-side
+- Preview gambar
+- Reset dan submit handling
 
 ---
 

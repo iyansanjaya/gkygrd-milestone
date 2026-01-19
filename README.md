@@ -8,6 +8,7 @@ Aplikasi web internal untuk mencatat milestone/event khusus GKY Gerendeng.
 
 - 🔐 **Autentikasi** - Login via Google OAuth atau Email OTP
 - 📝 **Milestones** - Catatan event/aktivitas dengan gambar
+- 📅 **Form Admin** - Halaman admin untuk menambah milestone dengan calendar picker
 - 👤 **Admin Only** - Hanya admin yang bisa create/edit/delete
 - 🔒 **Protected Routes** - Semua halaman memerlukan login
 
@@ -24,6 +25,7 @@ Aplikasi web internal untuk mencatat milestone/event khusus GKY Gerendeng.
 | Tailwind CSS | 4.x |
 | Zod | 4.3.5 |
 | Shadcn UI | - |
+| date-fns | - |
 
 ---
 
@@ -78,13 +80,14 @@ src/
 ├── app/                    # Next.js App Router
 │   ├── account/            # Halaman akun
 │   ├── auth/callback/      # OAuth callback
+│   ├── form/               # Halaman form admin (protected)
 │   ├── login/              # Halaman login
 │   ├── otp/                # Halaman OTP
 │   └── page.tsx            # Home (milestones)
 ├── components/
 │   ├── molecules/          # Komponen medium
-│   ├── organism/           # Komponen besar
-│   └── shadcn/             # Shadcn UI
+│   ├── organism/           # Komponen besar (termasuk milestone-form)
+│   └── shadcn/             # Shadcn UI (termasuk calendar)
 ├── lib/
 │   ├── actions/            # Server Actions
 │   ├── supabase/           # Supabase clients
@@ -150,6 +153,7 @@ Lihat [DOKUMENTASI.md](./DOKUMENTASI.md) untuk dokumentasi detail tentang:
 - Arsitektur aplikasi
 - Alur autentikasi
 - Server Actions
+- Form Admin & Calendar
 - Debugging
 - Deployment
 - Keamanan
